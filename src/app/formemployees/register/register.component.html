@@ -1,0 +1,94 @@
+<div class="form-container p-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h2>Registro de Empleado</h2>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+                <div class="p-grid p-fluid">
+                    <div class="p-col-12 p-md-6">
+                        <div class="p-field">
+                            <label for="numeroEmpleado">Núm. Empleado</label>
+                            <input pInputText id="numeroEmpleado" formControlName="numeroEmpleado"
+                                placeholder="Número generado automáticamente" readonly />
+                        </div>
+                    </div>
+
+
+                    <div class="p-col-12">
+                        <div class="p-field">
+                            <label for="nombre">Nombre</label>
+                            <input pInputText id="nombre" formControlName="nombre"
+                                placeholder="Ingrese nombre completo" />
+                            <small *ngIf="employeeForm.get('nombre')?.invalid && employeeForm.get('nombre')?.touched"
+                                class="p-error">Nombre es requerido</small>
+                        </div>
+                    </div>
+
+                    <div class="p-col-12 p-md-6">
+                        <div class="p-field">
+                            <label for="correo">Correo</label>
+                            <input pInputText id="correo" formControlName="correo"
+                                placeholder="Ingrese correo electrónico" />
+                            <small
+                                *ngIf="employeeForm.get('correo')?.hasError('required') && employeeForm.get('correo')?.touched"
+                                class="p-error">Correo es requerido</small>
+                            <small
+                                *ngIf="employeeForm.get('correo')?.hasError('email') && employeeForm.get('correo')?.touched"
+                                class="p-error">Ingrese un correo válido</small>
+                        </div>
+                    </div>
+
+                    <div class="p-col-12 p-md-6">
+                        <div class="p-field">
+                            <label for="telefono">Teléfono</label>
+                            <p-inputNumber id="telefono" formControlName="telefono"
+                                placeholder="Ingrese número telefónico" maxlength="10" minlength="10"></p-inputNumber>
+                            <small
+                                *ngIf="employeeForm.get('telefono')?.invalid && employeeForm.get('telefono')?.touched"
+                                class="p-error" max>Teléfono es requerido</small>
+                        </div>
+                    </div>
+
+                    <div class="p-col-12 p-md-6">
+                        <div class="p-field">
+                            <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                            <p-calendar id="fechaNacimiento" formControlName="fechaNacimiento" [showIcon]="true"
+                                dateFormat="dd/mm/yy" [maxDate]="today" [showButtonBar]="true" [monthNavigator]="true"
+                                [yearNavigator]="true" yearRange="1900:2030" placeholder="Seleccione fecha"
+                                inputId="fechaNacimiento-input">
+                            </p-calendar>
+                            <small
+                                *ngIf="employeeForm.get('fechaNacimiento')?.invalid && employeeForm.get('fechaNacimiento')?.touched"
+                                class="p-error">Fecha de nacimiento es requerida</small>
+                        </div>
+                    </div>
+
+                    <div class="p-col-12 p-md-6">
+                        <div class="p-field">
+                            <label>Sexo</label>
+                            <div class="p-d-flex p-ai-center">
+                                <div *ngFor="let gender of genders" class="p-mr-3">
+                                    <p-radioButton [inputId]="'gender-' + gender.value" name="gender"
+                                        [value]="gender.value" formControlName="gender">
+                                    </p-radioButton>
+                                    <label [for]="'gender-' + gender.value" class="p-ml-2">{{gender.label}}</label>
+                                </div>
+                            </div>
+                            <small *ngIf="employeeForm.get('gender')?.invalid && employeeForm.get('gender')?.touched"
+                                class="p-error">Seleccione un sexo</small>
+                        </div>
+                    </div>
+
+                    <div class="p-col-12">
+                        <button pButton type="submit" label="Registrar" class="p-button-raised"
+                            [disabled]="employeeForm.invalid"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<p-toast></p-toast>
+<app-table></app-table>

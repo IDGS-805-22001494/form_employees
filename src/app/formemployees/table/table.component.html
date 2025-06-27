@@ -1,0 +1,41 @@
+<!-- tabla-empleados.component.html -->
+<div class="card">
+  <p-table [value]="empleados" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="numeroEmpleado">Núm. Empleado 
+            <p-sortIcon field="numeroEmpleado"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nombre">Nombre
+            <p-sortIcon field="nombre"></p-sortIcon>
+        </th>
+        <th pSortableColumn="correo">Correo
+            <p-sortIcon field="correo"></p-sortIcon>
+        </th>
+        <th pSortableColumn="telefono">Teléfono
+            <p-sortIcon field="telefono"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fechaNacimiento">Fecha Nac.
+            <p-sortIcon field="fechaNacimiento"></p-sortIcon>
+        </th>
+        <th pSortableColumn="gender">Sexo</th>
+        
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-empleado let-rowIndex="rowIndex">
+      <tr>
+        <td>{{empleado.numeroEmpleado}}</td>
+        <td>{{empleado.nombre}}</td>
+        <td>{{empleado.correo}}</td>
+        <td>{{empleado.telefono}}</td>
+        <td>{{ empleado.fechaNacimiento | date:'dd/MM/yyyy' }}</td>
+        <td>{{empleado.gender}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" 
+                  (click)="eliminarEmpleado(rowIndex)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
